@@ -19,11 +19,6 @@ app.get('/about', (req, res) => {
     res.sendFile(pathToFile);
 });
 
-app.get('*', (req, res) => {
-    const pathToFile = path.join(__dirname, '/views', '/404.html');
-    res.status(404).sendFile(pathToFile);
-});
-
 app.get("/lego/sets", async (req,res)=>{
   let sets = await legoData.getAllSets();
   res.send(sets);
@@ -82,6 +77,11 @@ app.get("/lego/set/:id", async (req,res)=>{
   }catch(err){
     res.send(err);
   }
+});
+
+app.get('*', (req, res) => {
+  const pathToFile = path.join(__dirname, '/views', '/404.html');
+  res.status(404).sendFile(pathToFile);
 });
 
 legoData.initialize().then(()=>{
